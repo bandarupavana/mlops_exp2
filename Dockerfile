@@ -1,19 +1,15 @@
-FROM python:3.10-slim 
+# Use an official Python runtime as base image
+FROM python:3.9
 
-# Install dependencies
-RUN pip install --no-cache-dir pandas numpy scikit-learn==1.3.0 flask
-
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy necessary files
-COPY sentiment_analysis.py /app
-COPY model.pkl /app
-COPY vectorizer.pkl /app
-COPY predict1.py /app
+# Copy the necessary files
+COPY kmeans_clustering.py .
+COPY 3Ex3.csv .
 
-# Expose port 5000 (if running Flask)
-EXPOSE 5000
+# Install required Python packages
+RUN pip install pandas scikit-learn
 
-# Run prediction script
-CMD ["python", "predict1.py"]
+# Command to run the script
+CMD ["python", "kmeans_clustering.py"]
