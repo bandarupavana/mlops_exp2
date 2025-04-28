@@ -1,15 +1,17 @@
-# Use an official Python runtime as base image
+# Use an official Python runtime as a base image
 FROM python:3.9
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the necessary files
-COPY kmeans_clustering.py .
-COPY 3Ex3.csv .
+# Copy necessary files into the container
+COPY linear_regression.py predict.py 3Ex1.csv /app/
 
-# Install required Python packages
-RUN pip install pandas scikit-learn
+# Install dependencies
+RUN pip install numpy pandas scikit-learn
 
-# Command to run the script
-CMD ["python", "kmeans_clustering.py"]
+# Run the model training script
+RUN python linear_regression.py
+
+# Define the default command to run predictions
+CMD ["python", "predict.py"]
